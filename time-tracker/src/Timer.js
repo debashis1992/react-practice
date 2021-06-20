@@ -10,6 +10,7 @@ class Timer extends React.Component {
         this.handleStop = this.handleStop.bind(this);
         this.handleEdit = this.handleEdit.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.props.passToParent(this.state.title);
     }
     handleStart() {
         if(this.timerID!== undefined) {
