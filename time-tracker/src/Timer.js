@@ -4,7 +4,7 @@ import './TimerItem.css';
 class Timer extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {...props.info, isToggleOn: false, tempText:''};
+        this.state = {...props.info, isToggleOn: false, tempText:'', isDeleted: false};
         this.tick = this.tick.bind(this);
         this.handleStart = this.handleStart.bind(this);
         this.handleStop = this.handleStop.bind(this);
@@ -36,6 +36,12 @@ class Timer extends React.Component {
         }));
     }
 
+    handleDelete = () => {
+        this.setState(prevState => ({
+            isDeleted: true
+        }))
+    }
+
     handleCancel = () => this.setState({isToggleOn: false})
     handleChange = (e) => this.setState({tempText: e.target.value})
 
@@ -44,6 +50,7 @@ class Timer extends React.Component {
     }
 
     render() {
+        if(this.state.isDeleted) return null
         return (
             <div className="timer-item">
                 <p>Title: {this.state.title}</p>
@@ -51,6 +58,7 @@ class Timer extends React.Component {
                 <button onClick={this.handleStart}>Start</button>
                 <button onClick={this.handleStop}>Stop</button>
                 <button onClick={this.handleEdit}>Edit</button>
+                <button onClick={this.handleDelete}>Delete</button>
                 {this.state.isToggleOn && 
                 <div>
                     <label>
